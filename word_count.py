@@ -13,33 +13,51 @@ QUESTION 1:
 
 What is the output of the `git branch` command?
 ----------
-<paste answer here>
+* YenanXu
+  master
 ----------
 
 How can you tell which branch you're on?
 ----------
-<type answer here>
+The '*' in front of 'YenanXu' indicates that I'm on the branch YenanXu.
+Also, by using 'git status', we will see 'On branch <branch-name>' on the first line.
 ----------
 
 QUESTION 2:
 
 ----------
-$ <enter command here>
-<enter output here>
+$ git remote -v
+origin  https://github.com/YenanXu/bst273_lecture09.git (fetch)
+origin  https://github.com/YenanXu/bst273_lecture09.git (push)
 ----------
 
 QUESTION 3:
 
 ----------
-$ git remote add <What goes here?>
+$ git remote add kevin https://github.com/kescobo/bst273_lecture09.git
 ----------
 
 """
 
 import argparse
 
-parser = argparse.ArgumentParser( description="" )
+parser = argparse.ArgumentParser( description="A script for counting the number of words" )
 
+parser.add_argument(
+	"-l",
+	action = "store_true",
+	help="option(s) of counting",
+)
+parser.add_argument(
+	"-w",
+	action = "store_true",
+	help="option(s) of counting",
+)
+parser.add_argument(
+	"-c",
+	action = "store_true",
+	help="option(s) of counting",
+)
 parser.add_argument(
 	"data_file",
 	help="path to the file we want to read",
@@ -56,9 +74,14 @@ fh = open(args.data_file)
 lines = 0
 words = 0
 chars = 0
+row = []
 
 for line in fh:
 	lines += 1
+	row = line.strip( ).split( )
+	words += len( row )
+	chars += len( line )
+
 
 	# ## Question 4a (2 pts)
 	#
@@ -137,5 +160,13 @@ for line in fh:
 	# you probably need to add some stuff to the beginning of the script too.
 
 
+if args.l:
+	print(lines)
+elif args.w:
+	print(words)
+elif args.c:
+	print(chars)
+else:
+    print("    ", lines,"  ", words, " ", chars)
 
-print("   ", lines)
+fh.close( )
